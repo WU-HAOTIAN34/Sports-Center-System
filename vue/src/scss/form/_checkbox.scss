@@ -1,0 +1,7 @@
+.ant-checkbox-inner {
+	border-radius: 4px;
+
+	&::after {
+		top: 45%;
+	}
+}
