@@ -1,13 +1,23 @@
 package com.gym1.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
-public class VenueState {
+public class VenueState{
 
     private int id;
     private int venueId;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date begin;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date end;
+
     private int free;
     private int open;
 
@@ -20,6 +30,14 @@ public class VenueState {
 
     public VenueState(int id, int venueId, Date begin, Date end, int free, int open){
         this.id = id;
+        this.venueId = venueId;
+        this.begin = begin;
+        this.end = end;
+        this.free = free;
+        this.open = open;
+    }
+
+    public VenueState(int venueId, Date begin, Date end, int free, int open){
         this.venueId = venueId;
         this.begin = begin;
         this.end = end;
@@ -93,6 +111,7 @@ public class VenueState {
         result = 31 * result + getOpen();
         return result;
     }
+
     @Override
     public String toString() {
         return "VenueState{" +

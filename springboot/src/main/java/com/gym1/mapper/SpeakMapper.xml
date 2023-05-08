@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym1.mapper.SpeakMapper">
+
+    <insert id="addSpeak" parameterType="com.gym1.entity.Speak">
+        insert into speak (time, info, userId)
+        values (#{time}, #{info}, #{userId})
+    </insert>
+
+    <select id="queryAllSpeak" resultType="com.gym1.entity.Speak">
+        select s.id, s.time, s.info, u.username, u.image, s.userId
+        from  speak s
+        left join user u
+        on s.userId = u.id
+        order by s.time
+    </select>
+
+    <delete id="deleteSpeakById">
+        delete from speak
+        where id = #{id}
+    </delete>
+
+</mapper>

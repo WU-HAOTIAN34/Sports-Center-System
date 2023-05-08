@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym1.mapper.ItemMapper">
+
+    <insert id="addItem" parameterType="com.gym1.entity.Item">
+        insert into item (info, itemName, price, image, valid)
+        values (#{info}, #{itemName}, #{price}, #{image}, 1)
+    </insert>
+
+    <select id="queryItemByName" resultType="com.gym1.entity.Item">
+        select i.id, i.itemName, i.info, i.price, i.image
+        from item i
+        where i.itemName = #{itemName} and i.valid = 1
+    </select>
+
+    <select id="queryAllItem" resultType="com.gym1.entity.Item">
+        select id, itemName, info, price, image
+        from item
+        where valid = 1
+    </select>
+
+    <update id="updateItemValidById">
+        UPDATE item
+        SET valid = 0
+        where id = #{id}
+    </update>
+
+    <select id="queryItemById" resultType="com.gym1.entity.Item">
+        select i.id, i.itemName, i.info, i.price, i.image
+        from item i
+        where i.id = #{id} and i.valid = 1
+    </select>
+
+    <update id="updateItemById">
+        UPDATE item
+        SET itemName = #{name}, info = #{info}, price = #{price}, image = #{image}
+        where id = #{itemId}
+    </update>
+
+    <update id="updateItemById2">
+        UPDATE item
+        SET itemName = #{name}, info = #{info}, price = #{price}
+        where id = #{itemId}
+    </update>
+
+</mapper>

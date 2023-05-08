@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym1.mapper.ItemOrderMapper">
+
+    <insert id="addItemOrder" parameterType="com.gym1.entity.ItemOrder"  >
+        insert into item_order (orderTime, itemId, number, price, userId, comment)
+        values (#{orderTime}, #{itemId}, #{number}, #{price}, #{userId}, #{comment})
+    </insert>
+
+    <select id="queryItemIdByOrderId" resultType="int">
+        select o.itemId
+        from item_order o
+        where o.id = #{id}
+    </select>
+
+    <update id="editItemOrderCommentState">
+        UPDATE item_order
+        SET comment = #{state}
+        where id = #{orderId}
+    </update>
+
+    <select id="queryItemOrderByUserId" resultType="com.gym1.entity.ItemOrder">
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image
+        from item_order o left join user u on u.id = o.userId
+        left join item i
+        on i.id = o.itemId
+        where o.userId = #{id}
+    </select>
+
+    <select id="queryItemOrderByUserIdComment" resultType="com.gym1.entity.ItemOrder">
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image
+        from item_order o left join user u on u.id = o.userId
+        left join item i
+        on i.id = o.itemId
+        where o.userId = #{id} and o.comment = 0
+    </select>
+
+    <delete id="deleteItemOrder">
+        delete from item_order
+        where id = #{id}
+    </delete>
+
+    <select id="queryAllItemOrder" resultType="com.gym1.entity.ItemOrder">
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image, u.username
+        from item_order o left join user u on u.id = o.userId
+        left join item i
+        on i.id = o.itemId
+    </select>
+
+    <select id="queryItemOrderByItemOrderId" resultType="com.gym1.entity.ItemOrder">
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image, u.username
+        from item_order o left join user u on u.id = o.userId
+        left join item i
+        on i.id = o.itemId
+        where o.id = #{id}
+    </select>
+
+    <select id="queryItemOrderIdByItemOrder" resultType="int">
+        select o.id
+        from item_order o
+        where  o.itemId = #{itemId} and o.number = #{number} and o.price = #{price} and o.userId = #{userId} and o.orderTime = #{date}
+    </select>
+
+    <select id="countNumberByItemId" resultType="int">
+        select COALESCE(SUM( o.number ),0) AS activitySales
+        from item_order o
+        left join item i
+        on i.id = o.itemId
+        where i.id = #{id} and i.valid = 1 and o.orderTime > #{day}
+    </select>
+
+</mapper>

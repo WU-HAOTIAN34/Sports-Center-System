@@ -6,14 +6,68 @@
 <mapper namespace="com.gym1.mapper.UserMapper">
     
     <select id="queryUserByUsername" parameterType="String" resultType="com.gym1.entity.User">
-        select * from user where username=#{username}
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.card, u.membership
+        from user u
+        where username=#{username}
+    </select>
+
+    <select id="queryAllUser" resultType="com.gym1.entity.User">
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.admin, u.card, u.membership
+        from user u
     </select>
 
     <insert id="addUser" parameterType="com.gym1.entity.User">
-        insert into user(age,sex,username,password,name,phoneNumber,email)
-        values (#{age},#{sex},#{username},#{password},#{name},#{phoneNumber},#{email})
+        insert into user(age,sex,username,password,name,phoneNumber,email,admin)
+        values (#{age},#{sex},#{username},#{password},#{name},#{phoneNumber},#{email},0)
     </insert>
 
+    <select id="queryUserById" resultType="com.gym1.entity.User">
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.card, u.membership
+        from user u
+        where u.id = #{id}
+    </select>
+
+    <update id="editUser">
+        UPDATE user
+        SET age = #{age}, sex = #{sex}, name = #{name}, phoneNumber = #{phoneNumber}, password = #{password}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserImage">
+        UPDATE user
+        SET image = #{image}
+        where id = #{id}
+    </update>
+
+    <select id="queryUserByUsername2" parameterType="String" resultType="com.gym1.entity.User">
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image
+        from user u
+        where username=#{username} and admin = 1
+    </select>
+
+    <select id="queryUserByUsername3" parameterType="String" resultType="com.gym1.entity.User">
+        select r.id, r.username, r.password
+        from root r
+        where username=#{username}
+    </select>
+
+    <update id="updateUserAdminById">
+        UPDATE user
+        SET admin = #{num}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserCardById">
+        UPDATE user
+        SET card = #{card}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserMembershipById">
+        UPDATE user
+        SET membership = #{date}
+        where id = #{id}
+    </update>
 
 </mapper>
 

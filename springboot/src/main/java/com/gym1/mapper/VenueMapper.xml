@@ -6,7 +6,57 @@
 <mapper namespace="com.gym1.mapper.VenueMapper">
 
     <select id="queryAllVenue" resultType="com.gym1.entity.Venue">
-        select * from venue
+        select v.id, t.name typeName, t.introduction, v.name, v.address, v.price, v.image
+        from venue v
+        left join venue_type t
+        on v.type = t.id
+        where v.valid = 1
+        order by v.id
+    </select>
+
+    <select id="queryVenueById" resultType="com.gym1.entity.Venue">
+        select v.id, t.name typeName, t.introduction, v.name, v.address, v.price, v.image
+        from venue v
+        left join venue_type t
+        on v.type = t.id
+        where v.id = #{venueId} and v.valid = 1
+    </select>
+
+    <select id="queryVenueByName" resultType="com.gym1.entity.Venue">
+        select v.id, t.name typeName, t.introduction, v.name, v.address, v.price, v.image
+        from venue v
+        left join venue_type t
+        on v.type = t.id
+        where v.name = #{name} and v.valid = 1
+    </select>
+
+    <update id="updateVenueById">
+        UPDATE venue
+        SET type = #{type}, name = #{name}, address = #{address}, price = #{price}, image = #{image}
+        where id = #{venueId}
+    </update>
+
+    <update id="updateVenueById2">
+        UPDATE venue
+        SET type = #{type}, name = #{name}, address = #{address}, price = #{price}
+        where id = #{venueId}
+    </update>
+
+    <insert id="addVenue" parameterType="com.gym1.entity.Venue">
+        insert into venue (type, name, address, price, image, valid)
+        values (#{typeId}, #{name}, #{address}, #{price}, #{image}, 1)
+    </insert>
+
+    <update id="updateVenueValidById">
+        UPDATE venue
+        SET valid = 0
+        where id = #{id}
+    </update>
+
+    <select id="countVenueTypeNumber" resultType="int">
+        SELECT COUNT(v.name)
+        FROM venue v
+        WHERE v.type = #{type} and v.valid = 1
     </select>
 
 

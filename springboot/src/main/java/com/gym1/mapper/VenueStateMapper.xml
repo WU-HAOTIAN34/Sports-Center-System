@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym1.mapper.VenueStateMapper">
+
+    <select id="queryVenueStateByIdDate" resultType="com.gym1.entity.VenueState">
+        select *
+        from venue_state
+        where venueId=#{id}
+          and begin between #{now} and #{max}
+        order by begin
+    </select>
+
+    <select id="queryVenueStateByIdDate2" resultType="com.gym1.entity.VenueState">
+        select s.venueId, s.begin, s.end
+        from venue_state s
+        where venueId=#{id}
+          and begin between #{now} and #{max}
+        order by begin
+    </select>
+
+
+    <select id="queryAllVenueState" resultType="com.gym1.entity.VenueState">
+        select *
+        from venue_state
+    </select>
+
+    <select id="queryVenueStateById" resultType="com.gym1.entity.VenueState">
+        select *
+        from venue_state
+        where id=#{id}
+    </select>
+
+    <update id="updateVenueStateFree">
+        update venue_state
+        set free = #{free}
+        where id = #{id}
+    </update>
+
+    <update id="updateVenueStateOpen">
+        update venue_state
+        set open = #{open}
+        where id = #{id}
+    </update>
+
+    <select id="queryVenueStateByDate" resultType="com.gym1.entity.VenueState">
+        select *
+        from venue_state
+        where begin between #{begin} and #{end}
+        order by begin
+    </select>
+
+    <select id="queryVenueStateByDate2" resultType="com.gym1.entity.VenueState">
+        select s.venueId, s.begin, s.end
+        from venue_state s
+        where begin between #{begin} and #{end}
+        order by begin
+    </select>
+
+    <insert id="addVenueState" parameterType="com.gym1.entity.VenueState">
+        insert into venue_state (venueId, begin, end, free, open)
+        values (#{venueId}, #{begin}, #{end}, #{free}, #{open})
+    </insert>
+
+    <select id="queryVenueIdByVenueStateId" resultType="int">
+        select s.venueId
+        from venue_state s
+        where s.id = #{id}
+    </select>
+
+</mapper>

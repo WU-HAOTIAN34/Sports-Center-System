@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gym1.mapper.CommentMapper">
+
+    <insert id="addComment" parameterType="com.gym1.entity.Comment">
+        insert into comment (userId, orderId, venueId, commentTime, info)
+        values (#{userId}, #{orderId}, #{venueId}, #{commentTime}, #{info})
+    </insert>
+
+    <select id="queryCommentByVenueId" resultType="com.gym1.entity.Comment">
+        select c.id, c.commentTime, c.info, u.username, u.image, c.userId
+        from comment c
+        left join user u
+        on c.userId = u.id
+        where c.venueId = #{venueId}
+    </select>
+
+    <select id="queryCommentByUserId" resultType="com.gym1.entity.Comment">
+        select c.id, c.commentTime, c.info, u.username, u.image, v.name, v.image venueImage
+        from comment c left join user u on c.userId = u.id
+        left join venue v
+        on v.id = c.venueId
+        where c.userId = #{userId}
+    </select>
+
+    <delete id="deleteCommentById">
+        delete from comment
+        where id = #{id}
+    </delete>
+
+    <select id="queryAllComment" resultType="com.gym1.entity.Comment">
+        select c.id, c.commentTime, c.info, u.username, u.image, v.name, v.image venueImage
+        from comment c left join user u on c.userId = u.id
+        left join venue v
+        on v.id = c.venueId
+    </select>
+
+</mapper>
