@@ -1,7 +1,5 @@
 <template>
-
     <div>
-
         <a-card id="printContent" :bordered="false" class="card-invoice header-solid mb-24 mx-auto my-50" style="max-width: 800px;">
             <template #title>
                 <img src="images/logo-ct-black.png" class="brand">

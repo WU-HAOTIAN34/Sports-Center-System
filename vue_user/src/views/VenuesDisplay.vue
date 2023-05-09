@@ -1,7 +1,7 @@
 <template>
     <div>
         <a-row class="mb-24">
-            <a-col :span="12">
+            <a-col :span="14">
                 <a-select default-value="all" style="width: 220px" @change="handleChange">
                     <a-select-option value="all">
                         All
@@ -23,7 +23,7 @@
                     </a-select-option>
                 </a-select>
             </a-col>
-            <a-col :span="12">
+            <a-col :span="10">
                 <a-input-search placeholder="input search text" style="max-width: 200px;" v-model="query" @change="onSearchChange" />
             </a-col>
         </a-row>

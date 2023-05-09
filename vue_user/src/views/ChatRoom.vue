@@ -74,6 +74,7 @@ export default {
                             getAllChatMessages().then((response) => {
                                 this.messages = response.data.data
                             })
+                            this.form.resetFields()
                         }
                     })
                 }

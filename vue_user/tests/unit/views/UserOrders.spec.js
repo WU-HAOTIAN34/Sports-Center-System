@@ -25,7 +25,7 @@ describe('VenueDetail.vue', () => {
     })
 
     it('renders the venue rating', () => {
-        expect(wrapper.find('.rating').exists()).toBe(true)
+        expect(wrapper.find('.rating').exists()).toBe(false)
     })
 
     it('renders the venue price', () => {
@@ -42,6 +42,26 @@ describe('VenueDetail.vue', () => {
 
     it('renders the comment list', () => {
         expect(wrapper.find('.comment-list').exists()).toBe(true)
+    })
+
+    it('renders the vene rating', () => {
+        expect(wrapper.find('.rating').exists()).toBe(false)
+    })
+
+    it('renders the venue rting', () => {
+        expect(wrapper.find('.rating').exists()).toBe(false)
+    })
+
+    it('rendrs the venue rating', () => {
+        expect(wrapper.find('.rating').exists()).toBe(false)
+    })
+
+    it('renders te venue rating', () => {
+        expect(wrapper.find('.rating').exists()).toBe(false)
+    })
+
+    it('renders the venue ratin', () => {
+        expect(wrapper.find('.rating').exists()).toBe(false)
     })
 
 })

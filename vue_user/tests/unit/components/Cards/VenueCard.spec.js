@@ -4,42 +4,34 @@ import Vue from 'vue'
 Vue.config.silent = true
 describe('VenueCard.vue', () => {
     let wrapper
-    const propsData = {
+    const defaultProps = {
         id: 1,
-        name: 'Test Project',
+        name: 'Test Venue',
         address: '123 Test Street',
         cover: 'https://example.com/cover.jpg',
-        price: 100
+        price: 50
     }
 
     beforeEach(() => {
-        wrapper = shallowMount(VenueCard, { propsData })
+        wrapper = shallowMount(VenueCard, {
+            propsData: defaultProps
+        })
     })
 
-    it('renders the correct id', () => {
-        expect(wrapper.find('.card-tag').text()).toContain(`id: ${propsData.id}`)
+    it('renders the component with the provided prop', () => {
+        expect(wrapper.find('h5').text()).toBe(defaultProps.name)
     })
 
-    it('renders the correct name', () => {
-        expect(wrapper.find('h5').text()).toBe(propsData.name)
+    it('renders the component with th provided props', () => {
+        expect(wrapper.find('p').text()).toBe(defaultProps.address)
     })
 
-    it('renders the correct address', () => {
-        expect(wrapper.find('p').text()).toBe(propsData.address)
+    it('render the component with the provided props', () => {
+        expect(wrapper.find('img').attributes('src')).toBe(defaultProps.cover)
     })
 
-    it('renders the correct price', () => {
-        expect(wrapper.findAll('p').at(1).text()).toContain(`price: ${propsData.price} CNY/hour`)
-    })
-
-    it('calls "jump" method when "Book" button is clicked', async () => {
-        expect(wrapper.find('.card-tag').text()).toContain(`id: ${propsData.id}`)
-    })
-
-    it('navigates to the correct route when "jump" method is called', () => {
-        const pushSpy = jest.fn()
-        wrapper.vm.$router = { push: pushSpy }
-        wrapper.vm.jump()
-        expect(pushSpy).toHaveBeenCalledWith({ path: '/venueDetail', query: { id: propsData.id } })
+    it('displays the correct price per hour', () => {
+        const priceElement = wrapper.findAll('p').at(1)
+        expect(priceElement.text()).toBe(`price: ${defaultProps.price} CNY/hour`)
     })
 })

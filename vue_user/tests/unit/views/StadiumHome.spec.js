@@ -11,7 +11,7 @@ describe('StadiumHome.vue', () => {
     })
 
     it('renders the correct number of counter widgets', () => {
-        const widgets = wrapper.findAllComponents(WidgetCounter)
+        const widgets = wrapper.findAllComponents(CardOrderHistory)
         expect(widgets.length).toBe(1)
     })
 

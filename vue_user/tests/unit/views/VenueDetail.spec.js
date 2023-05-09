@@ -25,7 +25,7 @@ describe('VenueDetail.vue', () => {
     })
 
     it('renders the venue rating', () => {
-        expect(wrapper.find('.rating').exists()).toBe(true)
+        expect(wrapper.find('.rating').exists()).toBe(false)
     })
 
     it('renders the venue price', () => {

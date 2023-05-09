@@ -10,6 +10,7 @@ import './scss/app.scss'
 Vue.use(Antd)
 
 Vue.config.productionTip = false
+Vue.config.silent = true
 
 Vue.component('layout-dashboard', DashboardLayout)
 
