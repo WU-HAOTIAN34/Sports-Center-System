@@ -23,7 +23,7 @@
     </update>
 
     <select id="queryItemOrderByUserId" resultType="com.gym1.entity.ItemOrder">
-        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber phoneNum, u.name, i.itemName, i.image
         from item_order o left join user u on u.id = o.userId
         left join item i
         on i.id = o.itemId
@@ -31,7 +31,7 @@
     </select>
 
     <select id="queryItemOrderByUserIdComment" resultType="com.gym1.entity.ItemOrder">
-        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber phoneNum, u.name, i.itemName, i.image
         from item_order o left join user u on u.id = o.userId
         left join item i
         on i.id = o.itemId
@@ -44,14 +44,14 @@
     </delete>
 
     <select id="queryAllItemOrder" resultType="com.gym1.entity.ItemOrder">
-        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image, u.username
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber phoneNum, u.name, i.itemName, i.image, u.username
         from item_order o left join user u on u.id = o.userId
         left join item i
         on i.id = o.itemId
     </select>
 
     <select id="queryItemOrderByItemOrderId" resultType="com.gym1.entity.ItemOrder">
-        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image, u.username
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber phoneNum, u.name, i.itemName, i.image, u.username
         from item_order o left join user u on u.id = o.userId
         left join item i
         on i.id = o.itemId
@@ -70,6 +70,18 @@
         left join item i
         on i.id = o.itemId
         where i.id = #{id} and i.valid = 1 and o.orderTime > #{day}
+    </select>
+
+    <select id="sumPriceByDate2" resultType="double">
+        select COALESCE(SUM( o.price ),0) AS activitySales
+        from item_order o
+        where o.orderTime > #{begin}
+    </select>
+
+    <select id="sumPriceByDate" resultType="double">
+        select COALESCE(SUM( o.price ),0) AS activitySales
+        from item_order o
+        where o.orderTime between #{begin} and #{end}
     </select>
 
 </mapper>

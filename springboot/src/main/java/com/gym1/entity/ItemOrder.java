@@ -23,26 +23,27 @@ public class ItemOrder {
     private String image;
     private String itemName;
 
-    public ItemOrder(int id, Date orderTime, int number, double price, String phoneNumber,
+    public ItemOrder(int id, Date orderTime, int number, double price, String phoneNum,
                      String name, String itemName, String image) {
         this.id = id;
         this.orderTime = orderTime;
         this.number = number;
         this.price = price;
-        this.phoneNum = phoneNumber;
+        this.phoneNum = phoneNum;
         this.name = name;
         this.itemName = itemName;
         this.image = image;
 
     }
 
-    public ItemOrder(int id, Date orderTime, int number, double price, String phoneNumber,
+
+    public ItemOrder(int id, Date orderTime, int number, double price, String phoneNum,
                      String name, String itemName, String image, String username) {
         this.id = id;
         this.orderTime = orderTime;
         this.number = number;
         this.price = price;
-        this.phoneNum = phoneNumber;
+        this.phoneNum = phoneNum;
         this.name = name;
         this.itemName = itemName;
         this.image = image;

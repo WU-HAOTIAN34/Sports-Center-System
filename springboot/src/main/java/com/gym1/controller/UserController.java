@@ -3,11 +3,13 @@ package com.gym1.controller;
 
 import com.gym1.entity.User;
 import com.gym1.service.UserService;
+import com.gym1.util.EncryptionUtil;
 import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -34,7 +36,7 @@ public class UserController {
             reMap.put("code", 7001);
             reMap.put("message", "Username doesn't exist!");
             return reMap;
-        }else if(res.getPassword().equals(password)){
+        }else if(EncryptionUtil.decrypt(res.getPassword()).equals(password)){
             String id = res.getId() + "";
             String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 7002);
@@ -140,7 +142,7 @@ public class UserController {
             reMap.put("code", 7015);
             reMap.put("message", "Username doesn't exist!");
             return reMap;
-        }else if(res.getPassword().equals(password)){
+        }else if(EncryptionUtil.decrypt(res.getPassword()).equals(password)){
             String id = res.getId() + "";
             String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 7016);
@@ -165,7 +167,7 @@ public class UserController {
             reMap.put("code", 7018);
             reMap.put("message", "Username doesn't exist!");
             return reMap;
-        } else if (res.getPassword().equals(password)) {
+        } else if (EncryptionUtil.decrypt(res.getPassword()).equals(password)) {
             String id = res.getId() + "";
             String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 7019);
@@ -302,17 +304,10 @@ public class UserController {
             reMap.put("msg", "Error!");
             reMap.put("data", res);
         }else{
-            String temp = "";
-            Random random = new Random();
-            for (int i = 0; i < 6; i++){
-                for (int j = 0; j < 5; j++){
-                    temp = temp + (char)(random.nextInt(30)+48);
-                }
-                temp = temp + res.charAt(i);
-            }
+            res= EncryptionUtil.encryption(res);
             reMap.put("code", 7036);
             reMap.put("msg", "Success!");
-            reMap.put("data", temp);
+            reMap.put("data", res);
         }
         return reMap;
     }
@@ -368,12 +363,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/a")
-    public Map<String, Object> a(HttpServletRequest request, @RequestBody Map map){
-        Calendar calendar = Calendar.getInstance();
-        int a = calendar.get(Calendar.DAY_OF_WEEK);
-        System.out.println(a);
-        return null;
+    @GetMapping("/root/getWeeklyTendency")
+    public Map<String, Object> getWeeklyTendency(){
+        Map<String, Object> reMap = new HashMap<>();
+        Map<String, String> res = userService.getWeeklyTendency();
+        reMap.put("code", 7043);
+        reMap.put("msg", "Success!");
+        reMap.put("data", res);
+        return reMap;
     }
 
 }

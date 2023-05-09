@@ -129,6 +129,7 @@ public class ItemOrderController {
                 " \"Phone Number:\"" + " \"" + order.getPhoneNum() + "\"," +
                 " \"Username:\"" + " \"" + order.getUsername()+ "\"}";
         String code = QRCodeUtil.createQRCode(content);
+        System.out.println(order.getPhoneNum());
         if (code.equals("Failure")){
             reMap.put("code", 4013);
             reMap.put("msg", "Failure!");

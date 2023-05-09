@@ -31,4 +31,8 @@ public interface ItemOrderMapper {
 
     int countNumberByItemId(int id, String day);
 
+    double sumPriceByDate(String begin, String end);
+
+    double sumPriceByDate2(String begin);
+
 }
